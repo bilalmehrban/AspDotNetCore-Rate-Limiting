@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Logging;
 
 namespace AspDotNetCore_Rate_Limiting.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableRateLimiting("fixed")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -22,6 +24,7 @@ namespace AspDotNetCore_Rate_Limiting.Controllers
             _logger = logger;
         }
 
+        //[EnableRateLimiting("bucket")]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> GetWeatherForecast()
         {
